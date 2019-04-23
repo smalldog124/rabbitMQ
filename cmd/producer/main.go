@@ -19,7 +19,7 @@ func main() {
 	}
 	defer chanel.Close()
 
-	_, err = chanel.QueueDeclare(
+	q, err := chanel.QueueDeclare(
 		"hello", // name
 		false,   // durable เป็น queue ถาวร หรือไม่
 		false,   // delete when unused ถ้าของไม่มีคนถึงข้อมูลจาก qeue จะให้ลบทิ้งเลยหรือไม่
@@ -29,5 +29,19 @@ func main() {
 	)
 	if err != nil {
 		log.Fatal("Failed to declare a queue", err)
+	}
+
+	body := "Hello Smalldoc"
+	err = chanel.Publish(
+		"",     // exchange
+		q.Name, // routing key
+		false,  // mandatory
+		false,  // immediate
+		amqp.Publishing{
+			ContentType: "text/plain",
+			Body:        []byte(body),
+		})
+	if err != nil {
+		log.Fatal("Failed to publish a message", err)
 	}
 }
