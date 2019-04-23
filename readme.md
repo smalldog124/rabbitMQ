@@ -5,9 +5,6 @@
 ``` 
 docker-compose up -d
 ```
-จะมีหน้าสำหรับจัดการของ queue
-```
-http://localhost:15672
-# user guest
-# password guest
-```
+## เข้าหน้าสำหรับจัดการของ queue
+
+> http://localhost:15672 #user guest #password guest
